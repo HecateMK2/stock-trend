@@ -1,0 +1,28 @@
+$table-color: #191d28;
+
+table {
+    width: 50%;
+    font-size: 14px;
+    background: $table-color !important;
+}
+
+.green {
+    color: #088d3e;
+}
+
+.red {
+    color: #fe4a68;
+}
+
+.table-title {
+    color: white;
+}
+
+.table tbody+tbody {
+    border-top: 1px solid #454d55 !important;
+}
+
+.table {
+    font-family: 'Roboto', sans-serif;   
+    color: #c9cfcf !important;
+}

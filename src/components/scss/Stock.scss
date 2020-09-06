@@ -1,0 +1,58 @@
+$normal-font-size: 13px;
+
+#ticker-dropdown {
+    width: 20vw;
+    font-size: $normal-font-size;
+}
+
+.label {
+    padding: 10px;
+    margin-left: 5px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #a9b2cd;
+}
+
+.date-input {
+    height: 20px;
+    padding: 5px;
+    border: 1px solid #cfcfcf;
+    border-radius: 3px;
+    margin: 10px;
+    width: 15vw;
+    cursor: pointer;
+    display: inline-block;
+}
+
+#react-select-3-input {
+    font-size: 12px !important;
+}
+
+.m-left-10 {
+    margin-left: 10px;
+}
+
+.card-header {
+    background: #1e2330 !important;
+}
+
+.blue-outline-btn {
+    background-color: #7c4dff !important;
+    border-color: transparent  !important;
+    font-size: $normal-font-size !important;
+    font-weight: 600 !important;
+}
+
+.form-control {
+    font-size: $normal-font-size !important;
+}
+
+#spinner-custom {
+    color: white;
+    width: 1.2rem;
+    height: 1.2rem;
+}
+
+.m-left-5 {
+    margin-left: 5px;
+}

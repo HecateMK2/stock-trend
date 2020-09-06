@@ -1,5 +1,64 @@
 .App {
-  text-align: center;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.title {
+  color: #14bfb9;
+}
+
+.page-divider {
+  margin-top: 8px;
+  margin-bottom: 8px;
+  border: 0;
+  border-top: 1px solid #949db6;
+  opacity: 0.4;
+}
+
+.footer-text {
+  font-size: 10px;
+  /* display: inline-block; */
+  margin-left: 10px;
+  color: #7d8aa5;
+  float: right;
+}
+
+.italic {
+  font-style: italic;
+}
+
+.header {
+  padding: 15px;
+}
+
+#logo {
+  width: 1.5vw;
+}
+
+.inline {
+  display: inline;
+}
+
+.pad-10 {
+  padding: 10px;
+}
+
+.white {
+  color: white;
+}
+
+.card {
+  background-color: #191d28 !important;
+  border: none;
+}
+
+.line {
+  border-top: 1px solid #cfcfcf;
+}
+
+body {
+  background: #121620 !important;
+  font-family: 'Roboto', sans-serif;
 }
 
 .App-logo {
@@ -36,3 +95,4 @@
     transform: rotate(360deg);
   }
 }
+
