@@ -25,7 +25,6 @@ $breakpoint-tablet: 768px;
 }
 
 .date-input {
-    height: 20px;
     padding: 5px;
     border: 1px solid #cfcfcf;
     border-radius: 3px;
@@ -36,6 +35,7 @@ $breakpoint-tablet: 768px;
 
     @media (max-width: $breakpoint-tablet) {
         margin: auto;
+        width: auto;
     }
 }
 
