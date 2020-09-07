@@ -2,28 +2,19 @@ import React, { useState, createContext, useEffect } from 'react';
 import moment from 'moment'
 import { getTickers, getStock } from '../api/api';
 
-export const StockContext = createContext<ContextProps>({
-    stocks: [],
-    data: {},
-    tickers: [],
-    start: moment().subtract(3, 'month').format('YYYY-MM-DD'),
-    end: moment().format('YYYY-MM-DD'),
-    setStocks: (value: any) => null,
-    setStart: (value: any) => null,
-    setEnd: (value: any) => null,
-    getStockInfo: () => null,
-    loading: false,
-});
+export const StockContext = createContext<ContextProps>({} as ContextProps);
 
 interface ContextProps {
     stocks: string[],
     tickers: any[],
     data: any,
+    selected: any[],
     setStocks: (event: any) => void,
     start: string,
     end: string,
     setStart: (event: any) => void,
     setEnd:  (event: any) => void,
+    setSelected: (event: any) => void,
     getStockInfo: () => void,
     loading: boolean,
 }
@@ -33,6 +24,7 @@ export const StockContextProvider = (props : any) => {
     d.setMonth(d.getMonth() - 3);
 
     const [stocks, setStocks] = useState([]);
+    const [selected, setSelected] = useState([]);
     const [start, setStart] = useState(moment().subtract(3, 'month').format('YYYY-MM-DD'));
     const [end, setEnd] = useState(moment().format('YYYY-MM-DD'));
     const [tickers, setTickers] = useState([]);
@@ -42,13 +34,8 @@ export const StockContextProvider = (props : any) => {
     useEffect(() => {
         async function fetch() {
             const tickers = await getTickers();
-            let tickerSelect = tickers.map((x : string) => {
-                return {
-                    value: x,
-                    label: x,
-                }
-            })
-            setTickers(tickerSelect);
+            let formattedTickers = getFormattedTickers(tickers);
+            setTickers(formattedTickers);
         }
 
         fetch();
@@ -56,15 +43,30 @@ export const StockContextProvider = (props : any) => {
 
     async function getStockInfo() {
         setLoading(true);
-        let stocksParam = stocks.map((x : any) => x.value);
+        let stocksParam = selected.map((x : any) => x.value);
         let parameters = {
             id: stocksParam.join(" "),
             start: start,
             end: end,
         };
         let stockInfo = await getStock(parameters);
+        let tickers = await getTickers();
+        let formattedTickers = getFormattedTickers(tickers);
+
+        console.log(selected)
+        setTickers(formattedTickers)
         setData(stockInfo);
         setLoading(false);
+    }
+
+    function getFormattedTickers(options: any) {
+        let tickerSelect = options.map((x : string) => {
+            return {
+                value: x,
+                label: x,
+            }
+        });
+        return tickerSelect;
     }
 
     return (
@@ -76,10 +78,12 @@ export const StockContextProvider = (props : any) => {
                 start, 
                 end, 
                 loading,
+                selected,
                 setStocks, 
                 setStart, 
                 setEnd,
                 getStockInfo,
+                setSelected,
             }}>
             {props.children}
         </StockContext.Provider>

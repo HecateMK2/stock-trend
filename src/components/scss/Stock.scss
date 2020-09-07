@@ -1,8 +1,12 @@
 $normal-font-size: 13px;
+$breakpoint-tablet: 768px;
 
 #ticker-dropdown {
     width: 20vw;
     font-size: $normal-font-size;
+    @media (max-width: $breakpoint-tablet) {
+        width: auto;
+    }
 }
 
 .label {
@@ -11,6 +15,13 @@ $normal-font-size: 13px;
     font-size: 14px;
     font-weight: 600;
     color: #a9b2cd;
+    justify-content: start !important;
+    min-width: 120px;
+
+    @media (max-width: $breakpoint-tablet) {
+        padding: auto;
+        margin-left: 0;
+    }
 }
 
 .date-input {
@@ -22,6 +33,10 @@ $normal-font-size: 13px;
     width: 15vw;
     cursor: pointer;
     display: inline-block;
+
+    @media (max-width: $breakpoint-tablet) {
+        margin: auto;
+    }
 }
 
 #react-select-3-input {
@@ -30,6 +45,10 @@ $normal-font-size: 13px;
 
 .m-left-10 {
     margin-left: 10px;
+}
+
+.m-right-10 {
+    margin-right: 10px;
 }
 
 .card-header {
@@ -41,6 +60,10 @@ $normal-font-size: 13px;
     border-color: transparent  !important;
     font-size: $normal-font-size !important;
     font-weight: 600 !important;
+    @media (max-width: $breakpoint-tablet) {
+        float: right;
+        margin-top: 10px;
+    }
 }
 
 .form-control {
@@ -55,4 +78,10 @@ $normal-font-size: 13px;
 
 .m-left-5 {
     margin-left: 5px;
+}
+
+.form-group {
+     @media (max-width: $breakpoint-tablet) {
+        width: 100% !important;
+    }
 }

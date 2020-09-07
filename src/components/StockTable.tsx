@@ -13,13 +13,15 @@ export const StockTable = () => {
                         return (
                             <Col>
                                 <div>
-                                    <h4 className="table-title">{key}</h4>
+                                    <h4 className="table-title">{key.toUpperCase()}</h4>
                                         <Table striped hover variant="dark">
                                             <thead>
-                                                <th></th>
-                                                <th className="green" title="Days where open price - previous close price > 0">Green</th>
-                                                <th className="red" title="Days where open price - previous close price < 0">Red</th>
-                                                <th title="% of green days overall">Overnight Green %</th>
+                                                <tr>
+                                                    <th></th>
+                                                    <th className="green">Green</th>
+                                                    <th className="red">Red</th>
+                                                    <th>Overnight Green %</th>
+                                                </tr>
                                             </thead>                                  
                                                 {
                                                     data[key].map((item : any) => (

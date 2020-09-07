@@ -1,25 +1,42 @@
 import React, { useContext } from 'react';
-import Select from 'react-select';
+import CreatableSelect from 'react-select/creatable';
 import { Button, Spinner } from 'react-bootstrap';
 import './scss/Stock.scss';
 
 import { StockContext } from '../context/StockContext';
 import { optimizeSelect } from './OptimizedSelect';
+import { ValueType } from 'react-select/src/types';
 
 export const StockFilter = () => {
-    const { stocks, data, loading, setStocks, setStart, setEnd, getStockInfo, tickers, start, end } = useContext(StockContext);
+    const { loading, selected, setSelected, setStart, setEnd, getStockInfo, tickers, start, end } = useContext(StockContext);
+
+    // function handleSelect(event : ValueType<any>) {
+    //     let inputs = [];
+    //     if (event && event.length > 0) {
+    //         inputs = event.map((item : any) => {
+    //             return {
+    //                 value: item.value.toUpperCase(),
+    //                 label: item.label.toUpperCase(),
+    //             }
+    //         });
+    //     }
+    
+    //     setSelected(inputs);
+    // }
 
     return (
         <>       
             <form className="form-inline">
-                <div className="form-group">
+                <div className="form-group m-right-10">
                     <label htmlFor="stock" className="label">Stock</label>
-                    <Select 
+                    <CreatableSelect 
                         id="ticker-dropdown"
                         options={tickers} 
+                        values={selected}
                         isMulti={true}
-                        components={optimizeSelect.components}
-                        onChange={setStocks}
+                        getOptionLabel={option => option.label.toUpperCase()}
+                        getOptionValue={option => option.value.toUpperCase()}
+                        onChange={setSelected}
                     />
                 </div>
                 <div className="form-group">
