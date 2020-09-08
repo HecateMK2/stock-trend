@@ -15,8 +15,13 @@ interface ContextProps {
     setStart: (event: any) => void,
     setEnd:  (event: any) => void,
     setSelected: (event: any) => void,
-    getStockInfo: () => void,
+    getStockInfo: (e: any) => void,
     loading: boolean,
+}
+
+interface Ticker {
+    id: string,
+    symbol: string,
 }
 
 export const StockContextProvider = (props : any) => {
@@ -41,11 +46,17 @@ export const StockContextProvider = (props : any) => {
         fetch();
     }, []);
 
-    async function getStockInfo() {
+    async function getStockInfo(e: any) {
+        e.preventDefault();
         setLoading(true);
-        let stocksParam = selected.map((x : any) => x.value);
+        let stocksParam = selected.map((x : any) => { 
+            return {
+                id: x.value === x.label ? "" : x.value, 
+                symbol: x.label 
+            }
+        });
         let parameters = {
-            id: stocksParam.join(" "),
+            stocks: stocksParam,
             start: start,
             end: end,
         };
@@ -60,10 +71,10 @@ export const StockContextProvider = (props : any) => {
     }
 
     function getFormattedTickers(options: any) {
-        let tickerSelect = options.map((x : string) => {
+        let tickerSelect = options.map((x : Ticker) => {
             return {
-                value: x,
-                label: x,
+                value: x.id,
+                label: x.symbol,
             }
         });
         return tickerSelect;

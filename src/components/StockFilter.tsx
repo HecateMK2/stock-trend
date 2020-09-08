@@ -10,23 +10,9 @@ import { ValueType } from 'react-select/src/types';
 export const StockFilter = () => {
     const { loading, selected, setSelected, setStart, setEnd, getStockInfo, tickers, start, end } = useContext(StockContext);
 
-    // function handleSelect(event : ValueType<any>) {
-    //     let inputs = [];
-    //     if (event && event.length > 0) {
-    //         inputs = event.map((item : any) => {
-    //             return {
-    //                 value: item.value.toUpperCase(),
-    //                 label: item.label.toUpperCase(),
-    //             }
-    //         });
-    //     }
-    
-    //     setSelected(inputs);
-    // }
-
     return (
         <>       
-            <form className="form-inline">
+            <form className="form-inline" onSubmit={getStockInfo}>
                 <div className="form-group m-right-10">
                     <label htmlFor="stock" className="label">Stock</label>
                     <CreatableSelect 
@@ -37,6 +23,7 @@ export const StockFilter = () => {
                         getOptionLabel={option => option.label.toUpperCase()}
                         getOptionValue={option => option.value.toUpperCase()}
                         onChange={setSelected}
+                        isDisabled={loading}
                     />
                 </div>
                 <div className="form-group">
@@ -60,6 +47,7 @@ export const StockFilter = () => {
                         className="blue-outline-btn" 
                         onClick={getStockInfo}
                         disabled={loading}
+                        type="submit"
                     >      
                         {loading ? "" : "Go"}    
                         {loading &&
