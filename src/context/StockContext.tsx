@@ -25,9 +25,6 @@ interface Ticker {
 }
 
 export const StockContextProvider = (props : any) => {
-    let d = new Date();
-    d.setMonth(d.getMonth() - 3);
-
     const [stocks, setStocks] = useState([]);
     const [selected, setSelected] = useState([]);
     const [start, setStart] = useState(moment().subtract(3, 'month').format('YYYY-MM-DD'));
@@ -64,7 +61,6 @@ export const StockContextProvider = (props : any) => {
         let tickers = await getTickers();
         let formattedTickers = getFormattedTickers(tickers);
 
-        console.log(selected)
         setTickers(formattedTickers)
         setData(stockInfo);
         setLoading(false);

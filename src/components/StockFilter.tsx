@@ -1,21 +1,19 @@
 import React, { useContext } from 'react';
-import CreatableSelect from 'react-select/creatable';
 import { Button, Spinner } from 'react-bootstrap';
 import './scss/Stock.scss';
+import Select from 'react-select';
 
 import { StockContext } from '../context/StockContext';
-import { optimizeSelect } from './OptimizedSelect';
-import { ValueType } from 'react-select/src/types';
 
 export const StockFilter = () => {
-    const { loading, selected, setSelected, setStart, setEnd, getStockInfo, tickers, start, end } = useContext(StockContext);
+    const { loading, selected, tickers, start, end, setSelected, setStart, setEnd, getStockInfo } = useContext(StockContext);
 
     return (
         <>       
             <form className="form-inline" onSubmit={getStockInfo}>
                 <div className="form-group m-right-10">
                     <label htmlFor="stock" className="label">Stock</label>
-                    <CreatableSelect 
+                    <Select 
                         id="ticker-dropdown"
                         options={tickers} 
                         values={selected}
@@ -48,6 +46,7 @@ export const StockFilter = () => {
                         onClick={getStockInfo}
                         disabled={loading}
                         type="submit"
+                        id="go-btn"
                     >      
                         {loading ? "" : "Go"}    
                         {loading &&
