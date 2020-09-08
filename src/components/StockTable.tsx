@@ -11,7 +11,7 @@ export const StockTable = () => {
                 {
                     Object.keys(data).map((key: string, index: number) => {
                         return (
-                            <Col>
+                            <Col key={key} id={key}>
                                 <div>
                                     <h4 className="table-title">{key.toUpperCase()}</h4>
                                         <Table striped hover variant="dark">
@@ -22,24 +22,26 @@ export const StockTable = () => {
                                                     <th className="red">Red</th>
                                                     <th>Overnight Green %</th>
                                                 </tr>
-                                            </thead>                                  
+                                            </thead>    
+                                            <tbody>                              
                                                 {
                                                     data[key].map((item : any) => (
-                                                        <tbody>
+                                                        <tr key={item.Day}>
                                                             <td>{item.Day}</td>
                                                             <td>{item.Green}</td>
                                                             <td>{item.Red}</td>
                                                             <td>{((item.Green) / (item.Green + item.Red) * 100).toFixed(0)}%</td>
-                                                        </tbody>
+                                                        </tr>
                                                         )
                                                     )
-                                                }            
+                                                
+                                                }     
+                                                 </tbody>       
                                         </Table>
                                 </div>
                             </Col>
                         );
-            
-                })
+                    })
                 }
             </Row>
         </>
