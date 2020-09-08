@@ -90,6 +90,4 @@ describe('StockFilter tests', () => {
         expect(wrapper.find("Select#ticker-dropdown").props()["isDisabled"]).toBe(true);
         wrapper.unmount();
     });
-
-
-})
+});
