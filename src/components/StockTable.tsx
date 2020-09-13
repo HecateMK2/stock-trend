@@ -18,9 +18,11 @@ export const StockTable = () => {
                                             <thead>
                                                 <tr>
                                                     <th></th>
-                                                    <th className="green">Green</th>
-                                                    <th className="red">Red</th>
+                                                    <th>Intraday Change</th>
+                                                    <th className="green">Overnight Green</th>
+                                                    <th className="red">Overnight Red</th>
                                                     <th>Overnight Green %</th>
+                                                    <th>Overnight Change %</th>
                                                 </tr>
                                             </thead>    
                                             <tbody>                              
@@ -28,9 +30,11 @@ export const StockTable = () => {
                                                     data[key].map((item : any) => (
                                                         <tr key={item.Day}>
                                                             <td>{item.Day}</td>
+                                                            <td>{(((item.IntradayChange.reduce((a : number, b: number) => a + b)) / item.IntradayChange.length)).toFixed(2)} %</td>
                                                             <td>{item.Green}</td>
                                                             <td>{item.Red}</td>
                                                             <td>{((item.Green) / (item.Green + item.Red) * 100).toFixed(0)}%</td>
+                                                            <td>{(((item.OvernightChange.reduce((a : number, b: number) => a + b)) / item.OvernightChange.length)).toFixed(2)} %</td>
                                                         </tr>
                                                         )
                                                     )

@@ -1,5 +1,5 @@
 export async function getStock(data) {
-    const response = fetch(`${process.env.REACT_APP_API_URL}/stock`, {
+    const response = fetch(`${process.env.REACT_APP_API_URL}/stocks`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
