@@ -14,7 +14,7 @@ export const StockTable = () => {
                             <Col key={key} id={key}>
                                 <div>
                                     <h4 className="table-title">{key.toUpperCase()}</h4>
-                                        <Table striped hover variant="dark">
+                                        <Table striped hover responsive variant="dark">
                                             <thead>
                                                 <tr>
                                                     <th></th>
