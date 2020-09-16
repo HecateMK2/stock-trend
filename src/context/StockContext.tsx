@@ -49,7 +49,7 @@ export const StockContextProvider = (props : any) => {
         let stocksParam = selected.map((x : any) => { 
             return {
                 id: x.value === x.label ? "" : x.value, 
-                symbol: x.label 
+                symbol: x.label.toUpperCase() 
             }
         });
         let parameters = {

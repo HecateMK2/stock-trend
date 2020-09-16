@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Button, Spinner } from 'react-bootstrap';
 import './scss/Stock.scss';
-import Select from 'react-select';
+import CreatableSelect from 'react-select/creatable';
 
 import { StockContext } from '../context/StockContext';
 
@@ -13,7 +13,7 @@ export const StockFilter = () => {
             <form className="form-inline" onSubmit={getStockInfo}>
                 <div className="form-group m-right-10">
                     <label htmlFor="stock" className="label">Stock</label>
-                    <Select 
+                    <CreatableSelect 
                         id="ticker-dropdown"
                         options={tickers} 
                         values={selected}
