@@ -1,54 +1,47 @@
 import React, { useContext } from 'react';
+import moment from 'moment';
 import { StockContext } from '../context/StockContext';
 import './scss/Table.scss';
 import { Row, Col, Table } from 'react-bootstrap';
 
 export const StockTable = () => {
-    const { data } = useContext(StockContext);
+    const { data, selected } = useContext(StockContext);
     return (
         <>
             <Row>
-                {
-                    Object.keys(data).map((key: string, index: number) => {
-                        return (
-                            <Col key={key} id={key}>
-                                <div>
-                                    <h4 className="table-title">{key.toUpperCase()}</h4>
-                                        <Table striped hover responsive variant="dark">
-                                            <thead>
-                                                <tr>
-                                                    <th></th>
-                                                    <th>Intraday Change</th>
-                                                    <th className="green">Overnight Green</th>
-                                                    <th className="red">Overnight Red</th>
-                                                    <th>Overnight Green %</th>
-                                                    <th>Overnight Change %</th>
-                                                </tr>
-                                            </thead>    
-                                            <tbody>                              
-                                                {
-                                                    data[key].map((item : any) => (
-                                                        <tr key={item.Day}>
-                                                            <td>{item.Day}</td>
-                                                            <td>{(((item.IntradayChange.reduce((a : number, b: number) => a + b)) / item.IntradayChange.length)).toFixed(2)} %</td>
-                                                            <td>{item.Green}</td>
-                                                            <td>{item.Red}</td>
-                                                            <td>{((item.Green) / (item.Green + item.Red) * 100).toFixed(0)}%</td>
-                                                            <td>{(((item.OvernightChange.reduce((a : number, b: number) => a + b)) / item.OvernightChange.length)).toFixed(2)} %</td>
-                                                        </tr>
-                                                        )
-                                                    )
-                                                
-                                                }     
-                                                 </tbody>       
-                                        </Table>
-                                </div>
-                            </Col>
-                        );
-                    })
-                }
+                {data && data.length > 0 && selected && (
+                    <Col>
+                        <div>
+                            <h4 className="table-title">{selected.label.toUpperCase()}</h4>
+                            <Table striped hover responsive variant="dark">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Open</th>
+                                        <th>High</th>
+                                        <th>Low</th>
+                                        <th>Close</th>
+                                        <th>Volume</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {data.map((item: any) => (
+                                        <tr key={item.date}>
+                                            <td>{moment(item.date).format('YYYY-MM-DD')}</td>
+                                            <td>{item.open.toFixed(2)}</td>
+                                            <td>{item.high.toFixed(2)}</td>
+                                            <td>{item.low.toFixed(2)}</td>
+                                            <td>{item.close.toFixed(2)}</td>
+                                            <td>{item.volume}</td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </Table>
+                        </div>
+                    </Col>
+                )}
             </Row>
         </>
-    )
+    );
 
 }

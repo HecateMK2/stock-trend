@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { StockContextProvider } from './context/StockContext';
 import { StockFilter } from './components/StockFilter';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'

@@ -13,16 +13,13 @@ export const StockFilter = () => {
             <form className="form-inline" onSubmit={getStockInfo}>
                 <div className="form-group m-right-10">
                     <label htmlFor="stock" className="label">Stock</label>
-                    <CreatableSelect 
-                        id="ticker-dropdown"
-                        options={tickers} 
-                        values={selected}
-                        isMulti={true}
-                        getOptionLabel={option => option.label.toUpperCase()}
-                        getOptionValue={option => option.value.toUpperCase()}
-                        onChange={setSelected}
-                        isDisabled={loading}
-                    />
+                    <CreatableSelect
+                       id="ticker-dropdown"
+                       options={tickers}
+                       value={selected}
+                       onChange={setSelected}
+                       isDisabled={loading}
+                   />
                 </div>
                 <div className="form-group">
                     <label htmlFor="start-date" className="label">Start Date</label>
@@ -42,8 +39,7 @@ export const StockFilter = () => {
                         value={end}
                     />
                     <Button variant="primary" 
-                        className="blue-outline-btn" 
-                        onClick={getStockInfo}
+                        className="blue-outline-btn"
                         disabled={loading}
                         type="submit"
                         id="go-btn"

@@ -1,93 +1,78 @@
 import React, { useState, createContext, useEffect } from 'react';
-import moment from 'moment'
+import moment from 'moment';
 import { getTickers, getStock } from '../api/api';
+
+interface Ticker {
+  value: string;
+  label: string;
+}
+
+interface StockData {
+  date: Date;
+  open: number;
+  high: number;
+  low: number;
+  close: number;
+  volume: number;
+}
+
+interface ContextProps {
+    tickers: Ticker[];
+    data: StockData[];
+    selected: Ticker | null;
+    start: string;
+    end: string;
+    loading: boolean;
+    setStart: (date: string) => void;
+    setEnd:  (date: string) => void;
+    setSelected: (ticker: Ticker | null) => void;
+    getStockInfo: (e: React.FormEvent<HTMLFormElement>) => void;
+}
 
 export const StockContext = createContext<ContextProps>({} as ContextProps);
 
-interface ContextProps {
-    stocks: string[],
-    tickers: any[],
-    data: any,
-    selected: any[],
-    setStocks: (event: any) => void,
-    start: string,
-    end: string,
-    setStart: (event: any) => void,
-    setEnd:  (event: any) => void,
-    setSelected: (event: any) => void,
-    getStockInfo: (e: any) => void,
-    loading: boolean,
-}
-
-interface Ticker {
-    id: string,
-    symbol: string,
-}
-
 export const StockContextProvider = (props : any) => {
-    const [stocks, setStocks] = useState([]);
-    const [selected, setSelected] = useState([]);
+    const [selected, setSelected] = useState<Ticker | null>(null);
     const [start, setStart] = useState(moment().subtract(3, 'month').format('YYYY-MM-DD'));
     const [end, setEnd] = useState(moment().format('YYYY-MM-DD'));
-    const [tickers, setTickers] = useState([]);
+    const [tickers, setTickers] = useState<Ticker[]>([]);
     const [loading, setLoading] = useState(false);
-    const [data, setData] = useState({});
+    const [data, setData] = useState<StockData[]>([]);
 
     useEffect(() => {
         async function fetch() {
             const tickers = await getTickers();
-            let formattedTickers = getFormattedTickers(tickers);
-            setTickers(formattedTickers);
+            setTickers(tickers);
         }
 
         fetch();
     }, []);
 
-    async function getStockInfo(e: any) {
+    async function getStockInfo(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
         setLoading(true);
-        let stocksParam = selected.map((x : any) => { 
-            return {
-                id: x.value === x.label ? "" : x.value, 
-                symbol: x.label.toUpperCase() 
-            }
-        });
-        let parameters = {
-            stocks: stocksParam,
-            start: start,
-            end: end,
-        };
-        let stockInfo = await getStock(parameters);
-        let tickers = await getTickers();
-        let formattedTickers = getFormattedTickers(tickers);
-
-        setTickers(formattedTickers)
-        setData(stockInfo);
+        if (selected) {
+            const parameters = {
+                ticker: selected.value,
+                from: start,
+                to: end,
+            };
+            const stockInfo = await getStock(parameters);
+            setData(stockInfo);
+        }
         setLoading(false);
     }
 
-    function getFormattedTickers(options: any) {
-        let tickerSelect = options.map((x : Ticker) => {
-            return {
-                value: x.id,
-                label: x.symbol,
-            }
-        });
-        return tickerSelect;
-    }
-
     return (
-        <StockContext.Provider 
-            value={{ 
-                stocks, 
-                tickers, 
-                data, 
-                start, 
-                end, 
+        <StockContext.Provider
+            value={{
+                tickers,
+                data,
+                start,
+                end,
                 loading,
                 selected,
-                setStocks, 
-                setStart, 
+                setStart,
                 setEnd,
                 getStockInfo,
                 setSelected,
